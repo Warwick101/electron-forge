@@ -1,6 +1,5 @@
 import { app, BrowserWindow } from 'electron';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
-const AutoLaunch = require('auto-launch');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -27,12 +26,9 @@ const createWindow = () => {
 app.on('ready', createWindow);
 
 
-let autoLaunch = new AutoLaunch({
-    name: 'Your app name goes here',
-    path: app.getPath('exe'),
-});
-autoLaunch.isEnabled().then((isEnabled: any) => {
-    if (!isEnabled) autoLaunch.enable();
+app.setLoginItemSettings({
+    openAtLogin: true,
+    path: app.getPath("exe")
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
